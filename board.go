@@ -2,8 +2,8 @@ package main
 
 type Board struct {
     matrix [][]*Cell
-    width int
-    height int
+    Width int
+    Height int
 }
 
 // NewBoard creates a new Board.
@@ -36,9 +36,9 @@ func (self *Board) eachCell(f func(int, int, *Cell)) {
 // eachCell calls the function f on each cell of the board.
 func (self *Board) eachNeighbor(x, y int, f func(*Cell)) {
     for i := x - 1; i <= x + 1; i++ {
-        if i > -1 && i < self.width {
+        if i > -1 && i < self.Width {
             for j:= y - 1 ; j <= y + 1; j++ {
-                if j > -1 && j < self.height && !(i == x && j == y) {
+                if j > -1 && j < self.Height && !(i == x && j == y) {
                     f(self.matrix[i][j])
                 }
             }
@@ -133,9 +133,9 @@ func (self *Board) ConcurrentAdvance() {
 func (self *Board) neighborCount(x, y int) int {
     count := 0
     for i := x - 1; i <= x + 1; i++ {
-        if i > -1 && i < self.width {
+        if i > -1 && i < self.Width {
             for j:= y - 1 ; j <= y + 1; j++ {
-                if j > -1 && j < self.height && !(i == x && j == y) && self.matrix[i][j].Alive {
+                if j > -1 && j < self.Height && !(i == x && j == y) && self.matrix[i][j].Alive {
                     count++
                 }
             }

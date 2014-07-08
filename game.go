@@ -4,6 +4,7 @@ import (
     "time"
     "fmt"
     "runtime"
+    "math/rand"
 )
 
 type Game struct {
@@ -29,18 +30,27 @@ func (self *Game) setupToad() {
     self.seed(11, 11)
 }
 
+func (self *Game) setupRandom(n int) {
+    for ; n > 0; n-- {
+        x := rand.Intn(self.board.Width)
+        y := rand.Intn(self.board.Height)
+        self.seed(x, y)
+    }
+}
+
 func main() {
 
     runtime.GOMAXPROCS(1)
 
     game := newGame(30, 100)
-    game.setupToad()
+    //game.setupToad()
+    game.setupRandom(500)
 
     game.printer.ClearScreen()
 
     startTime := time.Now()
 
-    iterations := 10000
+    iterations := 100
 
     for i := 0; i < iterations; i++ {
         game.board.Advance()
